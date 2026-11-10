@@ -51,18 +51,31 @@ public class ConverterTest {
     }
 
     @Test
+    public void testConvertMorseToAZ() {
+        Converter convert = new Converter();
+        String code = ".- --..";
+
+        String actual = convert.getText(code);
+        String expected = "AZ";
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void testConvertMorseToText() {
         Converter convert = new Converter();
-        String text = ".... . .-.. .-.. --- .-- --- .-. .-.. -..";
+        String code = ".... . .-.. .-.. --- .-- --- .-. .-.. -..";
 
-        String actual = convert.getMorse(text);
+        String actual = convert.getText(code);
         String expected = "HELLOWORLD";
 
         assertEquals(expected, actual);
     }
 
-    //morse till bokstav
+
     //massor av mellanslag
     //lämna tomt
-    //
+    //små bokstäver
+    //siffror
+    //morsekod utan mellanslag
 }
