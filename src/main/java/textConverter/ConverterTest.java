@@ -8,10 +8,10 @@ public class ConverterTest {
 
     @Test
     public void testConvertAToMorse() {
-        Converter convert = new Converter();
+        Converter converter = new Converter();
         String text = "A";
 
-        String actual = convert.getMorse(text);
+        String actual = converter.getMorse(text);
         String expected = ".-";
 
         assertEquals(expected, actual);
@@ -19,10 +19,10 @@ public class ConverterTest {
 
     @Test
     public void testConvertAZToMorse() {
-        Converter convert = new Converter();
+        Converter converter = new Converter();
         String text = "AZ";
 
-        String actual = convert.getMorse(text);
+        String actual = converter.getMorse(text);
         String expected = ".- --..";
 
         assertEquals(expected, actual);
@@ -30,10 +30,10 @@ public class ConverterTest {
 
     @Test
     public void testConvertTextToMorse() {
-        Converter convert = new Converter();
+        Converter converter = new Converter();
         String text = "HELLOWORLD";
 
-        String actual = convert.getMorse(text);
+        String actual = converter.getMorse(text);
         String expected = ".... . .-.. .-.. --- .-- --- .-. .-.. -..";
 
         assertEquals(expected, actual);
@@ -41,10 +41,10 @@ public class ConverterTest {
 
     @Test
     public void testConvertMorseToA() {
-        Converter convert = new Converter();
+        Converter converter = new Converter();
         String code = ".-";
 
-        String actual = convert.getText(code);
+        String actual = converter.getText(code);
         String expected = "A";
 
         assertEquals(expected, actual);
@@ -52,10 +52,10 @@ public class ConverterTest {
 
     @Test
     public void testConvertMorseToAZ() {
-        Converter convert = new Converter();
+        Converter converter = new Converter();
         String code = ".- --..";
 
-        String actual = convert.getText(code);
+        String actual = converter.getText(code);
         String expected = "AZ";
 
         assertEquals(expected, actual);
@@ -63,19 +63,100 @@ public class ConverterTest {
 
     @Test
     public void testConvertMorseToText() {
-        Converter convert = new Converter();
+        Converter converter = new Converter();
         String code = ".... . .-.. .-.. --- .-- --- .-. .-.. -..";
 
-        String actual = convert.getText(code);
+        String actual = converter.getText(code);
         String expected = "HELLOWORLD";
 
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void testConvertNumbers() {
+        Converter converter = new Converter();
+        String text = "123";
 
-    //massor av mellanslag
-    //lämna tomt
-    //små bokstäver
-    //siffror
-    //morsekod utan mellanslag
+        String actual = converter.getMorse(text);
+        String expected = "Invalid input";
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testNoInput() {
+        Converter converter = new Converter();
+        String text = "";
+
+        String actual = converter.getMorse(text);
+        String expected = "No input";
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testMultipleSpaces() {
+        Converter converter = new Converter();
+        String text = "       ";
+
+        String actual = converter.getMorse(text);
+        String expected = "No input";
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testInvalidInputInMorse() {
+        Converter converter = new Converter();
+        String code = "HELLO";
+
+        String actual = converter.getText(code);
+        String expected = "Invalid input";
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testConvertLettersAndSpecialCharacter() {
+        Converter converter = new Converter();
+        String text = "HELLO!";
+
+        String actual = converter.getMorse(text);
+        String expected = "Invalid input";
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testConvertLowerCases() {
+        Converter converter = new Converter();
+        String text = "helloworld";
+
+        String actual = converter.getMorse(text);
+        String expected = ".... . .-.. .-.. --- .-- --- .-. .-.. -..";
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testSpecialCharacters() {
+        Converter converter = new Converter();
+        String text = "ÅÄÖ!#%&";
+
+        String actual = converter.getText(text);
+        String expected = "Invalid input";
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testConvertSpaceBetweenWords() {
+        Converter converter = new Converter();
+        String text = "HELLO WORLD";
+
+        String actual = converter.getMorse(text);
+        String expected = ".... . .-.. .-.. --- / .-- --- .-. .-.. -..";
+
+        assertEquals(expected, actual);
+    }
 }

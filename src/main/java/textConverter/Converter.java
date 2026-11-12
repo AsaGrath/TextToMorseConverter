@@ -5,64 +5,60 @@ import java.util.HashMap;
 public class Converter {
 
 
-
-    String alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    String[] morse = {
-            ".-", "-...", "-.-.", "-..", ".", "..-.",
-            "--.", "....", "..", ".---", "-.-", ".-..",
-            "--", "-.", "---", ".--.", "--.-", ".-.",
-            "...", "-", "..-", "...-", ".--", "-..-",
-            "-.--", "--.."
-    };
+    private HashMap<String, String> map;
 
 
-    public String getMorse(String text) {
-
-        HashMap<String, String> map = new HashMap<>();
+    public Converter() {
+        map = new HashMap<>();
+        String alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+        String[] morse = {
+                ".-", "-...", "-.-.", "-..", ".", "..-.",
+                "--.", "....", "..", ".---", "-.-", ".-..",
+                "--", "-.", "---", ".--.", "--.-", ".-.",
+                "...", "-", "..-", "...-", ".--", "-..-",
+                "-.--", "--..", "/"};
 
         for (int i = 0; i < alfabet.length(); i++) {
             String letter = Character.toString(alfabet.charAt(i));
             String code = morse[i];
             map.put(letter, code);
-          //  map.put(code, letter);
+            map.put(code, letter);
         }
-
+    }
+    public String getMorse(String text) {
+        text = text.toUpperCase();
         String myText = "";
+        if (text.isBlank()) {
+            return "No input";
+        }
 
         for (int i = 0; i < text.length(); i++) {
             String letter = Character.toString(text.charAt(i));
+
+            String translated = map.get(letter);
+            if (translated == null) {
+                return "Invalid input";
+            }
             myText += map.get(letter) + " ";
         }
         return myText.trim();
     }
 
     public String getText(String code) {
-        HashMap<String, String> map = new HashMap<>();
-
-        for (int i = 0; i < morse.length; i++) {
-            String letter = Character.toString(alfabet.charAt(i));
-            String morseCode = morse[i];
-            map.put(morseCode, letter);
-           // map.put(letter, morseCode);
+        if (code.isBlank()) {
+            return "No input";
         }
-
         String myCode = "";
         String[] codes = code.split(" ");
         for (int i = 0; i < codes.length; i++) {
-
-            //String letter = Character.toString(alfabet.charAt(i));
-
+            String translated = map.get(codes[i]);
+            if (translated == null) {
+                return "Invalid input";
+            }
             myCode += map.get(codes[i]);
-    }
-
+        }
         return myCode;
     }
 }
 
-//Frågor till Staffan:
-//Hur ska metoden veta om den får engelska eller morse?
-// Ska man använda 1 eller 2 metoder för att göra det?
-//behövs det en konstruktor?
-//kan jag slå ihop allt till en metod eller ska jag behålla 2 och rensa upp?
-//try catch ska väl ligga i main? för det är där felaktig inmatning kan ske
 
